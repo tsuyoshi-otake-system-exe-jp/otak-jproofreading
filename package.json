@@ -1,0 +1,80 @@
+{
+  "name": "otak-jproofreading",
+  "displayName": "日本語文章校正",
+  "description": "日本語の文章を簡単に校正できます。メールや文書を送信する前の最終チェックにご利用ください。",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onLanguage:plaintext"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "otak-jproofreading.checkDocument",
+        "title": "文書全体を校正",
+        "category": "日本語校正"
+      },
+      {
+        "command": "otak-jproofreading.checkSelection",
+        "title": "選択範囲を校正",
+        "category": "日本語校正"
+      }
+    ],
+    "configuration": {
+      "title": "日本語校正",
+      "properties": {
+        "otak-jproofreading.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI APIキー"
+        },
+        "otak-jproofreading.model": {
+          "type": "string",
+          "default": "gpt-4-turbo-preview",
+          "enum": [
+            "gpt-4-turbo-preview",
+            "gpt-4",
+            "gpt-3.5-turbo"
+          ],
+          "description": "使用するOpenAIモデル"
+        },
+        "otak-jproofreading.proxy": {
+          "type": "string",
+          "default": "",
+          "description": "プロキシサーバーのURL (例: http://proxy.example.com:8080)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "openai": "^4.28.0",
+    "https-proxy-agent": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.97.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+    "eslint": "^9.19.0",
+    "typescript": "^5.7.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
